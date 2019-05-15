@@ -4,12 +4,65 @@ info:
   title: backend
   description: My cool app
 basePath: /api
+tag: 
+- name: "auth"
+  description: "Everything about sign up and sign in"
+schemes:
+- "https"
+- "http"
+paths:
+  /auth/register:
+    post:
+      tags:
+      - "auth"
+      summary:
+      - "Register new account"
+      description: ""
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User object that needs to be added to the user db"
+        required: true
+        schema: 
+        $ref: "#/definitions/newAccount"
+      responses:
+        200:
+          description: "Register success"
+        405:
+          description: "Invalid input"
+definitions:
+  type: "object"
+  required:
+  - "role_id"
+  - "first_name"
+  - "last_name"
+  - "email"
+  - "phone_num"
+  properties:
+    role_id:
+      type: "integer"
+      enum: 
+      - 1
+      - 2
+    first_name:
+      type: "string"
+      example: "thao"
+    last_name:
+      type: "string"
+      example: "nguyen"
+    email:
+      type: "string"
+      example: "thaonp041099@gmail.com"
+    phone_num:
+      type: "string"
+      example: "0912345566"
+ 
+       
 
-tags:
-  - name: Examples
-    description: Simple example endpoints
-  - name: Specification
-    description: The swagger API specification
+  
+
 
 consumes:
   - application/json
