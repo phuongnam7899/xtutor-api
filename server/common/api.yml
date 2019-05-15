@@ -10,64 +10,87 @@ tag:
 schemes:
 - "https"
 - "http"
-paths:
-  /auth/register:
-    post:
-      tags:
-      - "auth"
-      summary:
-      - "Register new account"
-      description: ""
-      produces: 
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "User object that needs to be added to the user db"
-        required: true
-        schema: 
-        $ref: "#/definitions/newAccount"
-      responses:
-        200:
-          description: "Register success"
-        405:
-          description: "Invalid input"
-definitions:
-  type: "object"
-  required:
-  - "role_id"
-  - "first_name"
-  - "last_name"
-  - "email"
-  - "phone_num"
-  properties:
-    role_id:
-      type: "integer"
-      enum: 
-      - 1
-      - 2
-    first_name:
-      type: "string"
-      example: "thao"
-    last_name:
-      type: "string"
-      example: "nguyen"
-    email:
-      type: "string"
-      example: "thaonp041099@gmail.com"
-    phone_num:
-      type: "string"
-      example: "0912345566"
- 
-       
-
-  
-
 
 consumes:
   - application/json
 produces:
   - application/json
+
+definitions:
+  newAccount:
+    type: object
+    required:
+    - role_id
+    - first_name
+    - last_name
+    - email"
+    - phone_num
+    properties:
+      role_id:
+        type: integer
+        enum: 
+        - 1
+        - 2
+      first_name:
+        type: string
+        example: thao
+      last_name:
+        type: string
+        example: nguyen
+      email:
+        type: string
+        example: thaonp041099@gmail.com
+      phone_num:
+        type: string
+        example: 0912345566
+
+paths:
+  /auth/register:
+    post:
+      tags:
+      - auth
+      summary:
+      - Register new account
+      description: ""
+      produces: 
+      - application/json
+      parameters:
+       -name: body
+        in: body
+        description: User object that needs to be added to the user db
+        required: true
+        schema: 
+        $ref: "#/definitions/newAccount"
+      responses:
+        200:
+          description: Register success
+        405:
+          description: Invalid input
+  /auth/login:
+      post:
+        tag:
+          - Login
+        description: user login
+        parameters:
+          - name: email
+            in: body
+            require: true
+            description: email of user
+            type: String
+          - name: password
+            in: body
+            require: true
+            description: user password
+            type: String
+        respond:
+          - 200: 
+              description: go to user's page
+          - 401:
+              description: email or password incorrect
+        
+
+ 
+       
 
 
 # definitions:
@@ -128,28 +151,3 @@ produces:
 #       responses:
 #         200:
 #           description: Return the API specification
-
-  paths:
-    /auth/login:
-      post:
-        tag:
-          - Login
-        parameters
-        description: user login
-        parameter:
-          - name: email
-            in: body
-            require: true
-            description: email of user
-            type: String
-          - name: password
-            in: body
-            require: true
-            description: user password
-            type: String
-        respond:
-          - 200: 
-              description: go to user's page
-          - 401:
-              description: email or password incorrect
-        
