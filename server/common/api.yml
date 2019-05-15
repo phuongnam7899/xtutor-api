@@ -1,81 +1,3 @@
-# swagger: "2.0"
-# info:
-#   version: 1.0.0
-#   title: backend
-#   description: My cool app
-# basePath: /api
-
-# tags:
-#   - name: Examples
-#     description: Simple example endpoints
-# - name: Specification
-#     description: The swagger API specification
-
-# consumes:
-#   - application/json
-# produces:
-#   - application/json
-
-
-# # definitions:
-# #   ExampleBody:
-# #     type: object
-# #     title: example
-# #     required:
-# #       - name
-# #     properties:
-# #       name:
-# #         type: string
-# #         example: no_stress
-
-# paths:
-#   /examples:
-#     get:
-#       tags:
-#         - Examples
-#       description: Fetch all examples
-#       responses:
-#         200:
-#           description: Returns all examples
-#     post:
-#       tags:
-#         - Examples
-#       description: Create a new example
-#       parameters:
-#         - name: example
-#           in: body
-#           description: an example
-#           required: true
-#           schema: 
-#             $ref: "#/definitions/ExampleBody"
-#       responses:
-#         200:
-#           description: Returns all examples
-
-#   /examples/{id}:
-#     get:
-#       tags:
-#         - Examples
-#       parameters:
-#         - name: id
-#           in: path
-#           required: true
-#           description: The id of the example to retrieve
-#           type: integer
-#       responses:
-#         200:
-#           description: Return the example with the specified id
-#         404:
-#           description: Example not found
-
-#   /spec:
-#     get:
-#       tags:
-#         - Specification
-#       responses:
-#         200:
-#           description: Return the API specification
-
 swagger: "2.0"
 info:
   version: 1.0.0
@@ -142,120 +64,67 @@ definitions:
   
 
 
+consumes:
+  - application/json
+produces:
+  - application/json
 
 
+definitions:
+  ExampleBody:
+    type: object
+    title: example
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        example: no_stress
 
+paths:
+  /examples:
+    get:
+      tags:
+        - Examples
+      description: Fetch all examples
+      responses:
+        200:
+          description: Returns all examples
+    post:
+      tags:
+        - Examples
+      description: Create a new example
+      parameters:
+        - name: example
+          in: body
+          description: an example
+          required: true
+          schema: 
+            $ref: "#/definitions/ExampleBody"
+      responses:
+        200:
+          description: Returns all examples
 
+  /examples/{id}:
+    get:
+      tags:
+        - Examples
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the example to retrieve
+          type: integer
+      responses:
+        200:
+          description: Return the example with the specified id
+        404:
+          description: Example not found
 
-
-
-
-
-
-
-
-# tags:
-#   - name: Specification
-#     description: The swagger API specification
-
-# definitions:
-#     User:
-#       type: object
-#       title: user
-#       required:
-#         - account
-#         - role
-#         - profile
-#         - schedule
-#       propperties:
-#         account:
-#           type: object
-#           required:
-#             - email
-#             - password
-#           propertuies:
-#             email:
-#               -type: string
-#             password:
-#               -type: string
-#         role:
-#           type: object
-#           required:
-#             - tutor
-#             - student
-#           propperties:
-#             tutor:
-#               type: object
-#               required:
-#                 - schedule
-#                 - detail
-#               properties:
-#                 schedule:
-#                   type: object
-#                   require:
-#                     - start_time
-#                     - end_time
-#                 tutor_detail:
-#         profile:
-#           type: object
-#           required:
-#             - firstname
-#             - lastname
-#             - nationality
-#             - gender_name
-#             - race_name
-#             - identity_number
-#             - dob
-#             - language_name
-#             - academic_level_name
-#           properties:
-#             first_name:
-#               type: string
-#             last_name:
-#               type: string
-#             phone_code:
-#               type: number
-#             phone_number:
-#               type: number
-#             payment_method:
-#               type: string
-#             bank_name:
-#               type: string
-#             account_number:
-#               type: number
-#             paypal_email:
-#               type: string
-#             other_name:
-#               type: string
-#             country_name:
-#               type: string
-#             nationality_name:
-#               type: string
-#             race_name:
-#               type: string
-#             gender_name:
-#               type: string
-#             religion_name:
-#               type: string
-#             academic_level_name_name:
-#               type: string
-#             language_name:
-#               type: string
-#             city_name:
-#               type: string
-#             date_of_birth:
-#               type: date
-#             no_passport:
-#               type: number
-#             address:
-#               type: string
-#             postal_code:
-#               type: number
-#             country:
-#               type: string
-#             profile_picture:
-#               type: buffer
-#             language_user:
-#               type: string
-#         schedule:
-
+  /spec:
+    get:
+      tags:
+        - Specification
+      responses:
+        200:
+          description: Return the API specification
