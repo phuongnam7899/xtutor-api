@@ -10,4 +10,4 @@ const ClassSchema = new Schema({
     subject:{type:String}
 })
 
-module.exports = new Model("class",ClassSchema);
+export default new Model("class",ClassSchema);

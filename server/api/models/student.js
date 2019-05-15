@@ -10,4 +10,4 @@ const StudentModel = new Schema({
     }],
 })
 
-module.exports = new Model("student",StudentModel)
+export default new Model("student",StudentModel)
