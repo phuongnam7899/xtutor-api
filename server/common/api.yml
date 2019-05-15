@@ -82,174 +82,64 @@ info:
   title: backend
   description: My cool app
 basePath: /api
-
+tag: 
+- name: "auth"
+  description: "Everything about sign up and sign in"
+schemes:
+- "https"
+- "http"
+paths:
+  /auth/register:
+    post:
+      tags:
+      - "auth"
+      summary:
+      - "Register new account"
+      description: ""
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User object that needs to be added to the user db"
+        required: true
+        schema: 
+        $ref: "#/definitions/newAccount"
+      responses:
+        200:
+          description: "Register success"
+        405:
+          description: "Invalid input"
 definitions:
-    Users:
-      type: object
-      title: user
-      required:
-        - account
-        - role
-        - profile
-      propperties:
-        account:
-          type: object
-          required:
-            - email
-            - password
-          propertuies:
-            email:
-              -type: string
-            password:
-              -type: string
-        role:
-          type: string
-        profile:
-          type: object
-          required:
-            - firstname
-            - lastname
-            - nationality
-            - gender_name
-            - race_name
-            - identity_number
-            - dob
-            - language_name
-            - academic_level_name
-          properties:
-            first_name:
-              type: string
-            last_name:
-              type: string
-            phone_code:
-              type: number
-            phone_number:
-              type: number
-            payment_method:
-              type: string
-            bank_name:
-              type: string
-            account_number:
-              type: number
-            paypal_email:
-              type: string
-            other_name:
-              type: string
-            country_name:
-              type: string
-            nationality_name:
-              type: string
-            race_name:
-              type: string
-            gender_name:
-              type: string
-            religion_name:
-              type: string
-            academic_level_name_name:
-              type: string
-            language_name:
-              type: string
-            city_name:
-              type: string
-            date_of_birth:
-              type: date
-            no_passport:
-              type: number
-            address:
-              type: string
-            postal_code:
-              type: number
-            country:
-              type: string
-            profile_picture:
-              type: buffer
-            language_user:
-              type: string
-    Tutors:
-      type: object
-      required:
-        - user_id
-        - reference
-        - working_experience
-        - teaching subject
-        - calender
-      properties:
-        user_id:
-          type: string
-          reference:
-            type: object
-            required:
-              - about_me
-              - major
-              -profile_picture
-              - institute
-              - certificate
-            properties:
-              about_me:
-                type: string
-              profile_picture:
-                type: buffer
-              major:
-                type: string
-              institute:
-                type: string
-              certificate:
-                type: array
-        reference:
-          type: object
-          required:
-            - year
-            - experience
-          propperties:
-            year:
-              type: number
-            experience:
-              type: array
-        teaching_subject:
-          type: object
-          required:
-            -fee_per_hour
-            -fee_commitions
-            -fee_earn
-            -note
-            -user
-            -country
-            -academic_level
-            -academic_grade
-            -course
-          properties:
-            fee_per_hour:
-              type: number
-            fee_commitions:
-              type: number
-            fee_earn:
-              type: number
-            note:
-              type: string
-            country:
-              type: string
-            academic_level:
-              type: string
-            academic_grade:
-              type: string 
-            course:
-              type: array
-        calendar:
-          type: object
-          require:
-            - start_date
-            - end_date
-            - status
-          properties:
-            - start_date:
-              type: date
-            - end_date:
-              type: date
-            - status:
-              type: string
+  type: "object"
+  required:
+  - "role_id"
+  - "first_name"
+  - "last_name"
+  - "email"
+  - "phone_num"
+  properties:
+    role_id:
+      type: "integer"
+      enum: 
+      - 1
+      - 2
+    first_name:
+      type: "string"
+      example: "thao"
+    last_name:
+      type: "string"
+      example: "nguyen"
+    email:
+      type: "string"
+      example: "thaonp041099@gmail.com"
+    phone_num:
+      type: "string"
+      example: "0912345566"
+ 
+       
 
-
-
+  
 
 
 
