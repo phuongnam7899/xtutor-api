@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Model = mongoose.Model;
+const Model = mongoose.model;
 
 const StudentModel = new Schema({
     calender:[{
@@ -10,4 +10,4 @@ const StudentModel = new Schema({
     }],
 })
 
-export default new Model("student",StudentModel)
+export default new Model("student",StudentModel);

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Model = mongoose.Model;
+const Model = mongoose.model;
 
 const TutorSchema = new Schema({
         user_id:{type:mongoose.Types.ObjectId, ref:"user", require:true},
