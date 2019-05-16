@@ -24,7 +24,7 @@ const TutorSchema = new Schema({
             academic_grade:{type:String},
             course:[String],
         }],
-        free_calender:[{
+        free_calendar:[{
             start_time:{type:String},
             end_time:{type:String},
         }],

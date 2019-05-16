@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 const Model = mongoose.model;
 
 const StudentModel = new Schema({
-    calender:[{
+    user_id:{type:mongoose.Types.ObjectId, ref:"user", require:true},
+    calendar:[{
         start_time:{type:String},
         end_time:{type:String},
         tuition:{type:mongoose.Types.ObjectId, ref:"tuition"},
