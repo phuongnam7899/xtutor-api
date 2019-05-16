@@ -15,6 +15,13 @@ const app = new Express();
 export default class ExpressServer {
   constructor() {
     const root = path.normalize(`${__dirname}/../..`);
+    // mongoose.connect('mongodb+srv://phuongnam7899:phuongnam7899@xtutor-tdorw.mongodb.net/test?retryWrites=true',
+    //   (err) => {
+    //     if (err) console.log(err);
+    //     else {
+    //       console.log("connected to mongo");
+    //     };
+    //   });
     mongoose.connect('mongodb+srv://phuongnam7899:phuongnam7899@xtutor-tdorw.mongodb.net/test?retryWrites=true',
       {
         reconnectTries: 100,
