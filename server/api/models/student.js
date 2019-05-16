@@ -3,11 +3,8 @@ const Schema = mongoose.Schema;
 const Model = mongoose.model;
 
 const StudentModel = new Schema({
-    calender:[{
-        start_time:{type:String},
-        end_time:{type:String},
-        tuition:{type:mongoose.Types.ObjectId, ref:"tuition"},
-    }],
+    user_id : {type:mongoose.Types.ObjectId, ref:"user"},
+    calender :[{type:mongoose.Types.ObjectId, ref:"class"}]
 })
 
 export default new Model("student",StudentModel);
