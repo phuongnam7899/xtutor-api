@@ -14,32 +14,7 @@ produces:
   - application/json
 
 # definitions:
-#   newAccount:
-#     type: object
-#     required:
-#     - role_id
-#     - first_name
-#     - last_name
-#     - email
-#     - phone_num
-#     properties:
-#       role_id:
-#         type: integer
-#         enum: 
-#         - 1
-#         - 2
-#       first_name:
-#         type: string
-#         example: thao
-#       last_name:
-#         type: string
-#         example: nguyen
-#       email:
-#         type: string
-#         example: thaonp041099@gmail.com
-#       phone_num:
-#         type: string
-#         example: 0912345566
+
 definitions:
   LoginInfo:
     type: object
@@ -51,25 +26,44 @@ definitions:
         type: string
       password:
         type: string
+  newAccount:
+    type: object
+    required:
+    - role_id
+    - first_name
+    - last_name
+    - email
+    - phone_num
+    properties:
+      role_id:
+        type: integer
+      first_name:
+        type: string
+      last_name:
+          type: string
+      email:
+        type: string
+      phone_num:
+        type: string
 
 paths:
-  # /auth/register:
-  #   post:
-  #     tags:
-  #       - auth
-  #     description: Register new account
-  #     parameters:
-  #      -name: info
-  #       in: body
-  #       required: true
-  #       description: User object that needs to be added to the user db
-  #       schema: 
-  #       $ref: "#/definitions/newAccount"
-  #     respond:
-  #       200:
-  #         description: Register success
-  #       405:
-  #         description: Invalid input
+  /user/register:
+    post:
+      tags:
+        - user
+      description: Register new account
+      parameters:
+       - name: info
+         in: body
+         require: true
+         description: User object that needs to be added to the user db
+         schema: 
+           $ref: "#/definitions/newAccount"
+      respond:
+        - 200:
+          description: Register success
+        - 405:
+          description: Invalid input
 
   /auth/login:
     post:
