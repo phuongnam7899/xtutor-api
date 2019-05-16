@@ -4,3 +4,4 @@ import controller from './controller';
 export default express
 .Router()
 .post("/login", controller.login)
+.post("/register", controller.register)

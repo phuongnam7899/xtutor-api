@@ -16,12 +16,12 @@ produces:
 # definitions:
 
 definitions:
-  LoginInfo:
+  loginInfo:
     type: object
-    require:
+    required:
       - email
       - password
-    propperties:
+    properties:
       email:
         type: string
       password:
@@ -82,7 +82,7 @@ paths:
           require: true
           description: user account
           schema: 
-            $ref: "#/definitions/LoginInfo"
+            $ref: "#/definitions/loginInfo"
       respond:
         - 200: 
             description: go to user's page

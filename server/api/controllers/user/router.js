@@ -3,4 +3,3 @@ import controller from './controller';
 
 export default express
     .Router()
-    .post("/register", controller.register)
