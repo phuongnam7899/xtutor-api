@@ -15,13 +15,32 @@ const app = new Express();
 export default class ExpressServer {
   constructor() {
     const root = path.normalize(`${__dirname}/../..`);
+    // mongoose.connect('mongodb+srv://phuongnam7899:phuongnam7899@xtutor-tdorw.mongodb.net/test?retryWrites=true',
+    //   (err) => {
+    //     if (err) console.log(err);
+    //     else {
+    //       console.log("connected to mongo");
+    //     };
+    //   });
     mongoose.connect('mongodb+srv://phuongnam7899:phuongnam7899@xtutor-tdorw.mongodb.net/test?retryWrites=true',
-      (err) => {
-        if (err) console.log(err);
-        else {
-          console.log("connected to mongo");
-        };
-      });
+      {
+        reconnectTries: 100,
+        reconnectInterval: 500,
+        autoReconnect: true,
+        useNewUrlParser: true,
+        dbName: 'x-tutor'
+      }
+    )
+      .then(
+        () => {
+          console.log('connected');
+        }
+      )
+      .catch(
+        (err) => {
+          console.log(err);
+        }
+      );
     app.set('appPath', `${root}client`);
     app.use(bodyParser.json({ limit: process.env.REQUEST_LIMIT || '100kb' }));
     app.use(bodyParser.urlencoded({ extended: true, limit: process.env.REQUEST_LIMIT || '100kb' }));
