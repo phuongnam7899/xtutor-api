@@ -19,7 +19,8 @@ export class Controller {
                                 password: password
                             }
                             const token = jwt.sign(payload, process.env.SECRET_KEY);
-                            res.send(token);
+                            if(userFound.role === "student") res.redirect(`/api/user/student?token=${token}`);
+                            else res.redirect(`/api/user/tutor?token=${token}`);
                         }
                     }
                 })

@@ -53,7 +53,7 @@ definitions:
         type: string
 
 paths:
-  /user/register:
+  /auth/register:
     post:
       tags:
         - user
@@ -88,67 +88,19 @@ paths:
             description: go to user's page
         - 401:
             description: email or password incorrect
-        
-
- 
-       
-
-
-# definitions:
-#   ExampleBody:
-#     type: object
-#     title: example
-#     required:
-#       - name
-#     properties:
-#       name:
-#         type: string
-#         example: no_stress
-
-# paths:
-#   /examples:
-#     get:
-#       tags:
-#         - Examples
-#       description: Fetch all examples
-#       responses:
-#         200:
-#           description: Returns all examples
-#     post:
-#       tags:
-#         - Examples
-#       description: Create a new example
-#       parameters:
-#         - name: example
-#           in: body
-#           description: an example
-#           required: true
-#           schema: 
-#             $ref: "#/definitions/ExampleBody"
-#       responses:
-#         200:
-#           description: Returns all examples
-
-#   /examples/{id}:
-#     get:
-#       tags:
-#         - Examples
-#       parameters:
-#         - name: id
-#           in: path
-#           required: true
-#           description: The id of the example to retrieve
-#           type: integer
-#       responses:
-#         200:
-#           description: Return the example with the specified id
-#         404:
-#           description: Example not found
-
-#   /spec:
-#     get:
-#       tags:
-#         - Specification
-#       responses:
-#         200:
-#           description: Return the API specification
+  /user/tutor:
+    get:
+      tags:
+        - get tutors
+      description: get all tutor
+      respond:
+        - 404:
+          description: no turors
+  /user/student:
+    get:
+      tags:
+      - get students
+      description: get all student
+      respond:
+        - 404:
+          description: no student
