@@ -1,4 +1,6 @@
 import userModel from "../../models/user";
+import tutorModel from "../../models/tutor";
+import stdModel from "../../models/student";
 const jwt = require('../../../../node_modules/jsonwebtoken');
 
 
@@ -19,8 +21,8 @@ export class Controller {
                                 password: password
                             }
                             const token = jwt.sign(payload, process.env.SECRET_KEY);
-                            if(userFound.role === "student") res.redirect(`/api/user/student?token=${token}`);
-                            else res.redirect(`/api/user/tutor?token=${token}`);
+                            if(userFound.role === "student") res.send(token);
+                            else res.send(token);
                         }
                     }
                 })
