@@ -8,3 +8,4 @@ export default express
     .Router()
     .use("/tutor",tutorRouter)
     .use("/student",studentRouter)
+    .put("/",controller.updateProfile)

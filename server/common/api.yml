@@ -16,6 +16,11 @@ produces:
 # definitions:
 
 definitions:
+  updateRef:
+    type: object
+    properties:
+      major:
+        type: string
   loginInfo:
     type: object
     required:
@@ -85,7 +90,7 @@ paths:
             $ref: "#/definitions/loginInfo"
       respond:
         - 200: 
-            description: go to user's page
+            description: return token
         - 401:
             description: email or password incorrect
   /user/tutor:
@@ -100,7 +105,7 @@ paths:
     get:
       tags:
       - get students
-      description: get all student
+      description: return all students
       respond:
         - 404:
           description: no student
