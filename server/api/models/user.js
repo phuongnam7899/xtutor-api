@@ -13,15 +13,16 @@ const UserSchema = new Schema({
         account_number: {type:Number},
         address: {type:String},
         bank_name: {type:String},
-        country: {type:String},
-        city_name: {type:String},
-        country_name: {type:String},
         date_of_birth: {type:String},
         first_name: {type: String, require:true},
         gender_name: {type:String, require:true},
         last_name: {type: String, require:true},
+        country: {type:String},
+        country_name: {type:String},
         language_name: {type:String},
         language_user: {type:String},
+        city_name: {type:String},
+        religion_name: {type:String},
         nationality_name: {type:String},
         no_passport: {type:Number},
         other_name: {type:String},
@@ -32,7 +33,6 @@ const UserSchema = new Schema({
         phone_code: {type:Number},
         phone_number: {type:Number},
         race_name: {type:String},
-        religion_name: {type:String},
     }
 })
 
