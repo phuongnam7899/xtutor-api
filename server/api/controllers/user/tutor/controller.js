@@ -8,6 +8,9 @@ export class Controller {
             else res.send(data)
         })
     }
+    filter(req, res){
+        const { } = req.query;
+    }
     update_reference(req, res){
         const { major, institute, certificate } = req.body;
 
