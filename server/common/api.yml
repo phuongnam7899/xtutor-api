@@ -56,7 +56,62 @@ definitions:
         type: string
       gender_name:
         type: string
-
+  updateInfo:
+    type: object
+    required:
+    - major
+    properties:
+      major:
+        type: array
+        items:
+          type: string
+      certificate:
+        type: array
+        items:
+          type: string
+      id:
+        type: string
+      institute:
+        type: array
+        items:
+          type: string
+  experience:
+    type: object
+    required:
+    - id
+    - experiences
+    properties:
+      id:
+        type: string
+      experiences:
+        type: array
+        items:
+          type: object
+  teaching_sub:
+    type: object
+    required:
+    - id
+    - teaching_subs
+    properties:
+      id:
+        type: string
+      teaching_subs:
+        type: array
+        items:
+          type: object
+  feedback:
+    type: object
+    required:
+    - id
+    - feedbacks
+    properties:
+      id:
+        type: string
+      feedbacks:
+        type: array
+        items:
+          type: object
+  
 paths:
   /auth/register:
     post:
@@ -109,3 +164,77 @@ paths:
       respond:
         - 404:
           description: no student
+<<<<<<< HEAD
+=======
+  /user/tutor/update_reference:
+    put:
+      tags:
+      - tutor
+      description: update student
+      parameters:
+        - account:
+          in: body
+          require: true
+          description: update info
+          schema: 
+            $ref: "#/definitions/updateInfo"
+      respond:
+        - 200: 
+            description: go to user's page
+        - 401:
+            description: email or password incorrect
+  /user/tutor/update_experience:
+    put:
+      tags:
+      - tutor
+      description: update tutor experience
+      parameters:
+        - account:
+          in: body
+          require: true
+          description: update experience
+          schema: 
+            $ref: "#/definitions/experience"
+      respond:
+        - 200: 
+            description: go to user's page
+        - 401:
+            description: email or password incorrect
+  /user/tutor/update_teaching_sub:
+    put:
+      tags:
+      - tutor
+      description: update tutor teaching subject
+      parameters:
+        - account:
+          in: body
+          require: true
+          description: update teaching subject
+          schema: 
+            $ref: "#/definitions/teaching_sub"
+      respond:
+        - 200: 
+            description: go to user's page
+        - 401:
+            description: email or password incorrect
+  /user/tutor/update_feedback:
+    put:
+      tags:
+      - tutor
+      description: update tutor feedback
+      parameters:
+        - account:
+          in: body
+          require: true
+          description: update feedback
+          schema: 
+            $ref: "#/definitions/feedback"
+      respond:
+        - 200: 
+            description: go to user's page
+        - 401:
+            description: email or password incorrect
+      
+
+
+>>>>>>> 7c4b5d9a54bbee2c36e653d2f4b6b13f0d16a002

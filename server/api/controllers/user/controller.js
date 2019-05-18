@@ -2,7 +2,7 @@ import userModel from "../../models/user";
 export class Controller{
     updateProfile(req,res){
         const updateInfo = req.body
-        userModel.findByIdAndReplace(updateInfo.id,
+        userModel.findByIdAndUpdate(updateInfo.id,
             {$set : {
                 academic_level_name: updateInfo.academic_level_name,
                 account_number: updateInfo.account_number,
