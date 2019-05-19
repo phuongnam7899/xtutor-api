@@ -164,8 +164,6 @@ paths:
       respond:
         - 404:
           description: no student
-<<<<<<< HEAD
-=======
   /user/tutor/update_reference:
     put:
       tags:
@@ -237,4 +235,3 @@ paths:
       
 
 
->>>>>>> 7c4b5d9a54bbee2c36e653d2f4b6b13f0d16a002

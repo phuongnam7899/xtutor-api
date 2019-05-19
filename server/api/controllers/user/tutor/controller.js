@@ -9,7 +9,14 @@ export class Controller {
         })
     }
     filter(req, res){
-        const { } = req.query;
+        const conditions = req.query;
+        const query = {};
+        for(let key in req.query){
+            query[key] = req.query[key];
+        }
+        tutorModel.find(query, (err, data) =>{
+
+        })
     }
     update_reference(req, res){
         const { major, institute, certificate } = req.body;
