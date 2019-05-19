@@ -16,6 +16,10 @@ produces:
 # definitions:
 
 definitions:
+  updateUserProfile:
+    type: object
+    properties:
+      
   updateRef:
     type: object
     properties:
@@ -148,6 +152,26 @@ paths:
             description: return token
         - 401:
             description: email or password incorrect
+
+  /auth/logout:
+    get:
+      tags:
+        - logout
+      description: logout
+      paramenters:
+        - name: token
+          in: query
+          description: token to be disable
+          schema:
+            type: string
+  /user:
+    put:
+      tags:
+        - get users
+      description:
+        - get users profile    
+      respond:
+        200: get all users      
   /user/tutor:
     get:
       tags:

@@ -18,7 +18,6 @@ const UserSchema = new Schema({
         gender_name: {type:String, require:true},
         last_name: {type: String, require:true},
         country: {type:String},
-        country_name: {type:String},
         language_name: {type:String},
         language_user: {type:String},
         city_name: {type:String},
