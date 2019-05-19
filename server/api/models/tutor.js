@@ -33,4 +33,4 @@ const TutorSchema = new Schema({
             time: {type:String}
         }]
 })
-export default new Model("tutor",TutorSchema);
+export default Model("tutor",TutorSchema);

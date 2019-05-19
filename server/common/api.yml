@@ -13,13 +13,7 @@ consumes:
 produces:
   - application/json
 
-# definitions:
-
 definitions:
-  updateUserProfile:
-    type: object
-    properties:
-      
   updateRef:
     type: object
     properties:
@@ -180,11 +174,16 @@ paths:
       respond:
         - 404:
           description: no turors
-  /user/student:
+  /user/student/{id}:
     get:
       tags:
       - get students
       description: return all students
+      parameters:
+        - name: id
+          in: path
+          description: student id
+          type: string
       respond:
         - 404:
           description: no student
@@ -256,6 +255,14 @@ paths:
             description: go to user's page
         - 401:
             description: email or password incorrect
-      
+  /class/{id}:
+    get:
+      description: get one class
+      parameters:
+        - name: id
+          in: path
+          description: class id
+          type: string
+
 
 

@@ -2,7 +2,7 @@ import * as express from 'express';
 import controller from './controller';
 
 export default express
-.Router()
-.post("/login", controller.login)
-.post("/register", controller.register)
-.get("/logout", controller.logout)
+                .Router()
+                .post("/login", controller.login)
+                .post("/register", controller.register)
+                .get("/logout", controller.logout)
