@@ -15,8 +15,8 @@ const TutorSchema = new Schema({
             experience: {type: String}
         }],
         teaching_subject:[{
-            academic_level:{type:String},
             academic_grade:{type:String},
+            academic_level:{type:String},
             subject: {type: String},
             hourly_rate: {type: Number}
         }],

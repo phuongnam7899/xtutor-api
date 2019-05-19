@@ -11,6 +11,13 @@ export class Controller{
             else res.send(classFound)
         })
     }
+    delete(req,res){
+        const id = req.params.id;
+        classModel.findByIdAndDelete(id)
+            .catch((err) => {
+                res.send(err);
+            });
+    }
 }
 
 export default new Controller;

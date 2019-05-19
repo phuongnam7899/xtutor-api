@@ -109,12 +109,25 @@ definitions:
         type: array
         items:
           type: object
-  
+  tutor_id:
+    type: object
+    required:
+    - id
+    properties:
+      id:
+        type: string 
+  tutor_filter:
+    type: object
+    properties:
+      academic_level:
+        type: string
+      subject:
+        type: string   
 paths:
   /auth/register:
     post:
       tags:
-        - user
+        - auth
       description: Register new account
       parameters:
        - name: info
@@ -132,7 +145,7 @@ paths:
   /auth/login:
     post:
       tags:
-        - Login
+        - auth
       description: user login
       parameters:
         - account:
@@ -150,7 +163,7 @@ paths:
   /auth/logout:
     get:
       tags:
-        - logout
+        - auth
       description: logout
       paramenters:
         - name: token
@@ -161,7 +174,7 @@ paths:
   /user:
     put:
       tags:
-        - get users
+        - user
       description:
         - get users profile    
       respond:
@@ -169,7 +182,7 @@ paths:
   /user/tutor:
     get:
       tags:
-        - get tutors
+        - tutor
       description: get all tutor
       respond:
         - 404:
@@ -177,8 +190,8 @@ paths:
   /user/student/{id}:
     get:
       tags:
-      - get students
-      description: return all students
+      - student
+      description: return 1 student
       parameters:
         - name: id
           in: path
@@ -256,6 +269,8 @@ paths:
         - 401:
             description: email or password incorrect
   /class/{id}:
+    tags:
+      - class
     get:
       description: get one class
       parameters:
@@ -263,6 +278,47 @@ paths:
           in: path
           description: class id
           type: string
+    delete:
+      description: delete one class
+      parameter:
+        - name: id
+          in: path
+          desxcription: class id
+          type: string
 
+  /user/tutor/{id}:
+    get:
+      tags:
+      - tutor
+      description: get tutor detail
+      parameters:
+        - name : id
+          in: path
+          require: true
+          description: get tutor detail
+          type: string
+      respond:
+        - 200: 
+            description: go to user's page
+        - 401:
+            description: email or password incorrect
+  /user/tutor/filter:
+    post:
+      tags:
+      - tutor
+      description: filter tutor
+      parameters:
+        - name: body
+          in: body
+          require: true
+          description: filter tutor
+          schema: 
+            $ref: "#/definitions/tutor_filter"
+      respond:
+        - 200: 
+            description: go to user's page
+        - 401:
+            description: email or password incorrect
+      
 
 

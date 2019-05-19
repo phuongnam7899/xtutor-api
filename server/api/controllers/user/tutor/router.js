@@ -7,3 +7,5 @@ export default expresss
         .put("/update_experience", controller.update_working_experience)
         .put("/update_teaching_sub", controller.update_teaching_sub)
         .put("/update_feedback", controller.update_feedback)
+        .get("/:id", controller.findOne)
+        .post("/filter", controller.filter)

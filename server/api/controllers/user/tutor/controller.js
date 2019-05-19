@@ -8,6 +8,29 @@ export class Controller {
             else res.send(data)
         })
     }
+    findOne(req, res){
+        const id = req.params.id;
+        tutorModel.findById(id)
+        .populate('user_id')
+        .exec((err, tutor) => {
+            res.send(tutor)
+        })
+    }
+    filter(req, res){
+        const condition_obj = {}
+        for (let key in req.body) {
+            if(req.body[key] !==""){
+                condition_obj[`teaching_subject.${key}`] = req.body[key]
+            }
+        }
+        console.log(condition_obj)
+        tutorModel.find(condition_obj)
+        .populate('user_id')
+        .exec((err, userdata) => {
+            if(err) console.log(err)
+            else res.send(userdata)
+        })
+    }
     update_reference(req, res){
         const { major, institute, certificate } = req.body;
 

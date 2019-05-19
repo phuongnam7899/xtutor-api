@@ -8,9 +8,8 @@ const ClassSchema = new Schema({
     subject:{type:String},
     sessions:[{
         start_time: {type:String},
-        end_time:{type: String},
-        videos:[Buffer]
-    }],
+        end_time:{type: String}
+    }]
 })
 
 export default Model("class",ClassSchema);
