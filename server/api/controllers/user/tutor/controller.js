@@ -10,7 +10,7 @@ export class Controller {
     }
     findOne(req, res){
         const { id } = req.body;
-        tutorModel.find({ "_id": id })
+        tutorModel.find({ "user_id": id })
         .populate('user_id')
         .exec((err, tutor) => {
             res.send(tutor)

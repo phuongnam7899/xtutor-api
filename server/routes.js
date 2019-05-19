@@ -1,4 +1,5 @@
 import authRouter from './api/controllers/auth/router';
+import classRouter from './api/controllers/class/router';
 const bodyParser = require("../node_modules/body-parser");
 import userRouter from './api/controllers/user/router';
 const morgan = require('../node_modules/morgan');
@@ -36,4 +37,5 @@ export default function routes(app) {
   });
 
   app.use("/api/user", userRouter);
+  app.use("/api/class", classRouter);
 }

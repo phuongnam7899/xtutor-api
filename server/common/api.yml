@@ -128,7 +128,25 @@ definitions:
       academic_level:
         type: string
       subject:
-        type: string   
+        type: string 
+  newClass:
+    type: object
+    required:
+    - tutor_id
+    - student_id
+    - subject
+    - sessions
+    properties:
+      sessions:
+        type: array
+        items:
+          type: object
+      tutor_id:
+        type: string
+      student_id:
+        type: string
+      subject:
+        type: string 
 paths:
   /auth/register:
     post:
@@ -303,6 +321,40 @@ paths:
             description: go to user's page
         - 401:
             description: email or password incorrect
+  /class:
+    post:
+      tags:
+        - class
+      description: book new class
+      parameters:
+       - name: info
+         in: body
+         require: true
+         description: new class booked by student
+         schema: 
+           $ref: "#/definitions/newClass"
+      respond:
+        - 200:
+          description: Class success
+        - 405:
+          description: Invalid info
+  /class/student/{student_id}:
+    get:
+      tags:
+        - class
+      description: get classes of student
+      parameters:
+        - name: student_id
+          in: path
+          type: string
+          description: student id to get his/her classes
+      response:
+        - 200:
+          description: Class success
+        - 405:
+          description: Invalid info
+
+  
       
 
 

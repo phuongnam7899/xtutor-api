@@ -7,8 +7,9 @@ const ClassSchema = new Schema({
     student_id: {type: mongoose.Types.ObjectId, ref:"student"},
     subject:{type:String},
     sessions:[{
-        start_time: {type:String},
-        end_time:{type: String}
+        start: {type:String},
+        end :{type: String},
+        note:{type: String}
     }]
 })
 
