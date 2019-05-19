@@ -1,6 +1,7 @@
 import userModel from "../../models/user";
 import tutorModel from "../../models/tutor";
 import stdModel from "../../models/student";
+import DisabledTokenModel from '../../models/disabled_token'
 const jwt = require('../../../../node_modules/jsonwebtoken');
 
 
@@ -55,6 +56,11 @@ export class Controller {
                 }
             }
         )
+    }
+
+    logout(req,res){
+        const token = req.body.token || req.query.token || req.headers['x-access-token'];
+        DisabledTokenModel.create({disabled_token: token});
     }
 }
 

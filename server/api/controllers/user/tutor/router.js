@@ -7,3 +7,5 @@ export default expresss
         .put("/update_experience", controller.update_working_experience)
         .put("/update_teaching_sub", controller.update_teaching_sub)
         .put("/update_feedback", controller.update_feedback)
+        .post("/findOne", controller.findOne) //nho sua thanh get dung query
+        .post("/filter", controller.filter)

@@ -16,6 +16,10 @@ produces:
 # definitions:
 
 definitions:
+  updateUserProfile:
+    type: object
+    properties:
+      
   updateRef:
     type: object
     properties:
@@ -111,7 +115,20 @@ definitions:
         type: array
         items:
           type: object
-  
+  tutor_id:
+    type: object
+    required:
+    - id
+    properties:
+      id:
+        type: string 
+  tutor_filter:
+    type: object
+    properties:
+      academic_level:
+        type: string
+      subject:
+        type: string   
 paths:
   /auth/register:
     post:
@@ -148,6 +165,26 @@ paths:
             description: return token
         - 401:
             description: email or password incorrect
+
+  /auth/logout:
+    get:
+      tags:
+        - logout
+      description: logout
+      paramenters:
+        - name: token
+          in: query
+          description: token to be disable
+          schema:
+            type: string
+  /user:
+    put:
+      tags:
+        - get users
+      description:
+        - get users profile    
+      respond:
+        200: get all users      
   /user/tutor:
     get:
       tags:
@@ -227,6 +264,40 @@ paths:
           description: update feedback
           schema: 
             $ref: "#/definitions/feedback"
+      respond:
+        - 200: 
+            description: go to user's page
+        - 401:
+            description: email or password incorrect
+  /user/tutor/findOne:
+    post:
+      tags:
+      - tutor
+      description: get tutor detail
+      parameters:
+        - account:
+          in: body
+          require: true
+          description: get tutor detail
+          schema: 
+            $ref: "#/definitions/tutor_id"
+      respond:
+        - 200: 
+            description: go to user's page
+        - 401:
+            description: email or password incorrect
+  /user/tutor/filter:
+    post:
+      tags:
+      - tutor
+      description: filter tutor
+      parameters:
+        - name: body
+          in: body
+          require: true
+          description: filter tutor
+          schema: 
+            $ref: "#/definitions/tutor_filter"
       respond:
         - 200: 
             description: go to user's page

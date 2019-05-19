@@ -8,14 +8,27 @@ export class Controller {
             else res.send(data)
         })
     }
+    findOne(req, res){
+        const { id } = req.body;
+        tutorModel.find({ "_id": id })
+        .populate('user_id')
+        .exec((err, tutor) => {
+            res.send(tutor)
+        })
+    }
     filter(req, res){
-        const conditions = req.query;
-        const query = {};
-        for(let key in req.query){
-            query[key] = req.query[key];
+        const condition_obj = {}
+        for (let key in req.body) {
+            if(req.body[key] !==""){
+                condition_obj[`teaching_subject.${key}`] = req.body[key]
+            }
         }
-        tutorModel.find(query, (err, data) =>{
-
+        console.log(condition_obj)
+        tutorModel.find(condition_obj)
+        .populate('user_id')
+        .exec((err, userdata) => {
+            if(err) console.log(err)
+            else res.send(userdata)
         })
     }
     update_reference(req, res){

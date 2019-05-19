@@ -12,13 +12,13 @@ const TutorSchema = new Schema({
         },
         working_experience:[{
             year: {type:Number},
-            experience:{type:String}
+            experience: {type: String}
         }],
         teaching_subject:[{
-            academic_level:{type:String},
             academic_grade:{type:String},
-            subject:{type:String},
-            hourly_rate:{type:Number}
+            academic_level:{type:String},
+            subject: {type: String},
+            hourly_rate: {type: Number}
         }],
         free_calendar:[{
             start_time:{type:String},
