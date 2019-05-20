@@ -9,7 +9,7 @@ const ClassSchema = new Schema({
     sessions:[{
         start: {type:String},
         end :{type: String},
-        note:{type: String}
+        title:{type: String}
     }]
 })
 

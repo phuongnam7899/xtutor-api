@@ -141,6 +141,15 @@ definitions:
         type: string
       subject:
         type: string 
+  free_time:
+    type: object
+    required:
+    - free_time
+    properties:
+      free_time:
+        type: array
+        items:
+          type: object
 paths:
   /auth/register:
     post:
@@ -205,6 +214,27 @@ paths:
       respond:
         - 404:
           description: no turors
+  /user/tutor/update_free_time/{id}:   
+    put:
+      tags:
+      - class
+      description: update tutor freetime
+      parameters:
+        - name : id
+          in : path
+          description: tutor id
+          type: string
+        - account:
+          in: body
+          require: true
+          description: update freetime
+          schema: 
+            $ref: "#/definitions/free_time"
+      respond:
+        - 200: 
+            description: go to user's page
+        - 401:
+            description: email or password incorrect
   /user/student/{id}:
     get:
       tags:
@@ -364,6 +394,21 @@ paths:
           in: path
           type: string
           description: student id to get his/her classes
+      response:
+        - 200:
+          description: Class success
+        - 405:
+          description: Invalid info
+  /class/tutor/{tutor_id}:
+    get:
+      tags:
+        - class
+      description: get free time of tutor
+      parameters:
+        - name: tutor_id
+          in: path
+          type: string
+          description: tutor id to get his/her classes
       response:
         - 200:
           description: Class success

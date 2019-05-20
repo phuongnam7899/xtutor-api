@@ -22,7 +22,8 @@ const TutorSchema = new Schema({
         }],
         free_calendar:[{
             start:{type:String},
-            end:{type:String}, 
+            end:{type:String},
+            title:{type:String, default: "free time"} 
         }],
         feedback: [{
             user_id:{type:mongoose.Types.ObjectId, ref:"user"},
