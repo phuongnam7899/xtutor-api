@@ -1,8 +1,8 @@
 import authRouter from './api/controllers/auth/router';
-import userRouter from './api/controllers/user/router';
 import classRouter from './api/controllers/class/router';
-import DisabledTokenModel from './api/models/disabled_token';
 const bodyParser = require("../node_modules/body-parser");
+import userRouter from './api/controllers/user/router';
+import DisabledTokenModel from './api/models/disabled_token';
 const morgan = require('../node_modules/morgan');
 const jwt = require('../node_modules/jsonwebtoken');
 
@@ -37,5 +37,5 @@ export default function routes(app) {
   });
 
   app.use("/api/user", userRouter);
-  app.use('/api/class', classRouter);
+  app.use("/api/class", classRouter);
 }

@@ -21,8 +21,8 @@ const TutorSchema = new Schema({
             hourly_rate: {type: Number}
         }],
         free_calendar:[{
-            start_time:{type:String},
-            end_time:{type:String}, 
+            start:{type:String},
+            end:{type:String}, 
         }],
         feedback: [{
             user_id:{type:mongoose.Types.ObjectId, ref:"user"},
