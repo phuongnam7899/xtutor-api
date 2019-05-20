@@ -13,4 +13,4 @@ const ClassSchema = new Schema({
     }]
 })
 
-export default new Model("class",ClassSchema);
+export default Model("class",ClassSchema);

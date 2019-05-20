@@ -4,10 +4,28 @@ import stdModel from "../../models/student";
 import classModel from "../../models/class";
 import tutor from "../../models/tutor";
 
-export class Controller {
+
+export class Controller{
+    getOne(req,res){
+        const id = req.params.id;
+        classModel.findById(id)
+        .populate('tutor_id')
+        .populate('student_id')
+        .exec((err,classFound) => {
+            if(err) res.send(err)
+            else res.send(classFound)
+        })
+    }
+    cancelClass(req,res){
+        const id = req.params.id;
+        classModel.findByIdAndDelete(id)
+            .catch((err) => {
+                res.send(err);
+            });
+    }
     bookClass(req, res){
         const { tutor_id, student_id, subject, sessions } = req.body;
-
+    
         classModel.create({ tutor_id, student_id, subject, sessions }, (err, newClass) => {
             if(err) console.log(err);
             else res.send(newClass)
@@ -21,30 +39,6 @@ export class Controller {
                 else res.send(classes)
             }
         )
-    }
-    update_free_time(req, res){
-        let oldFreeTime = [];
-        let newFreeTime = req.body.free_time;
-        tutorModel.find({"user_id": req.body.tutor_id}, (err, data) => {
-            if(err) console.log(err);
-            else{ 
-                oldFreeTime = data[0].free_calendar;
-                tutorModel.update(
-                    {"user_id": req.body.tutor_id},
-                    {$set: {free_calendar: oldFreeTime.concat(newFreeTime)}},
-                    {new: true},
-                    (err, updated) => {
-                        if(err) console.log(err);
-                        else{
-                            tutor.find({"user_id": req.body.tutor_id}, (err, tutor) => {
-                                if(err) console.log(err)
-                                else res.send(tutor[0].free_calendar)
-                            })
-                        }
-                    }
-                )
-            }
-        })
     }
     showTutorCalendar(req, res){
         let allClasses = [];

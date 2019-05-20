@@ -13,13 +13,7 @@ consumes:
 produces:
   - application/json
 
-# definitions:
-
 definitions:
-  updateUserProfile:
-    type: object
-    properties:
-      
   updateRef:
     type: object
     properties:
@@ -151,19 +145,16 @@ definitions:
     type: object
     required:
     - free_time
-    - tutor_id
     properties:
       free_time:
         type: array
         items:
           type: object
-      tutor_id:
-        type: string
 paths:
   /auth/register:
     post:
       tags:
-        - user
+        - auth
       description: Register new account
       parameters:
        - name: info
@@ -181,7 +172,7 @@ paths:
   /auth/login:
     post:
       tags:
-        - Login
+        - auth
       description: user login
       parameters:
         - account:
@@ -199,7 +190,7 @@ paths:
   /auth/logout:
     get:
       tags:
-        - logout
+        - auth
       description: logout
       paramenters:
         - name: token
@@ -210,7 +201,7 @@ paths:
   /user:
     put:
       tags:
-        - get users
+        - user
       description:
         - get users profile    
       respond:
@@ -218,16 +209,42 @@ paths:
   /user/tutor:
     get:
       tags:
-        - get tutors
+        - tutor
       description: get all tutor
       respond:
         - 404:
           description: no turors
-  /user/student:
+  /user/tutor/update_free_time/{id}:   
+    put:
+      tags:
+      - class
+      description: update tutor freetime
+      parameters:
+        - name : id
+          in : path
+          description: tutor id
+          type: string
+        - account:
+          in: body
+          require: true
+          description: update freetime
+          schema: 
+            $ref: "#/definitions/free_time"
+      respond:
+        - 200: 
+            description: go to user's page
+        - 401:
+            description: email or password incorrect
+  /user/student/{id}:
     get:
       tags:
-      - get students
-      description: return all students
+      - student
+      description: return 1 student
+      parameters:
+        - name: id
+          in: path
+          description: student id
+          type: string
       respond:
         - 404:
           description: no student
@@ -299,18 +316,35 @@ paths:
             description: go to user's page
         - 401:
             description: email or password incorrect
-  /user/tutor/findOne:
-    post:
+  /class/{id}:
+    tags:
+      - class
+    get:
+      description: get one class
+      parameters:
+        - name: id
+          in: path
+          description: class id
+          type: string
+    delete:
+      description: get one class
+      parameters:
+        - name: id
+          in: path
+          description: class id
+          type: string
+
+  /user/tutor/{id}:
+    get:
       tags:
       - tutor
       description: get tutor detail
       parameters:
-        - account:
-          in: body
+        - name : id
+          in: path
           require: true
           description: get tutor detail
-          schema: 
-            $ref: "#/definitions/tutor_id"
+          type: string
       respond:
         - 200: 
             description: go to user's page
@@ -380,23 +414,6 @@ paths:
           description: Class success
         - 405:
           description: Invalid info
-  /class/tutor/update_free_time:   
-    put:
-      tags:
-      - class
-      description: update tutor freetime
-      parameters:
-        - account:
-          in: body
-          require: true
-          description: update freetime
-          schema: 
-            $ref: "#/definitions/free_time"
-      respond:
-        - 200: 
-            description: go to user's page
-        - 401:
-            description: email or password incorrect
 
   
       
