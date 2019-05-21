@@ -10,6 +10,9 @@ import swaggerify from './swagger';
 
 import l from './logger';
 
+//npm i cors nhé
+const cors = require('cors');
+
 const app = new Express();
 
 export default class ExpressServer {
@@ -37,6 +40,11 @@ export default class ExpressServer {
     app.set('appPath', `${root}client`);
     app.use(bodyParser.json({ limit: process.env.REQUEST_LIMIT || '100kb' }));
     app.use(bodyParser.urlencoded({ extended: true, limit: process.env.REQUEST_LIMIT || '100kb' }));
+    //nhớ thêm dòng này để link vs frontend
+    app.use(cors({
+      origin: ["http://localhost:3000"],
+      credentials: true
+    }));
     app.use(cookieParser(process.env.SESSION_SECRET));
     app.use(Express.static(`${root}/public`));
   }
