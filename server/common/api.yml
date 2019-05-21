@@ -214,17 +214,17 @@ paths:
       respond:
         - 404:
           description: no turors
-  /user/tutor/update_free_time/{id}:   
+  /user/tutor/update_free_time/{id}:  
     put:
       tags:
-      - class
-      description: update tutor freetime
+        - tutor
+      description: update tutor's freetime
       parameters:
         - name : id
           in : path
-          description: tutor id
+          description: tutor's id
           type: string
-        - account:
+        - name: free_time
           in: body
           require: true
           description: update freetime
@@ -403,7 +403,7 @@ paths:
     get:
       tags:
         - class
-      description: get free time of tutor
+      description: get class of tutor
       parameters:
         - name: tutor_id
           in: path

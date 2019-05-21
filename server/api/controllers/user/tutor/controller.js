@@ -31,7 +31,7 @@ export class Controller {
                 else res.send(userdata)
             })
     }
-    update_reference(req, res) {
+    updateReference(req, res) {
         const { major, institute, certificate } = req.body;
 
         tutorModel.findByIdAndUpdate(
@@ -49,7 +49,7 @@ export class Controller {
             }
         )
     }
-    update_free_time(req, res) {
+    updateFreeTime(req, res) {
         const newFreeTime = req.body.free_time;
         const id = req.params.id;
         tutorModel.findById(id)
@@ -64,7 +64,7 @@ export class Controller {
             .catch((err) => res.send(err))
     }
 
-    update_working_experience(req, res) {
+    updateWorkingExperience(req, res) {
         const expe_arr = req.body.experiences;
         tutorModel.findByIdAndUpdate(
             req.body.id,
@@ -81,7 +81,7 @@ export class Controller {
             }
         )
     }
-    update_teaching_sub(req, res) {
+    updateTeachingSub(req, res) {
         tutorModel.findByIdAndUpdate(
             req.body.id,
             { $set: { teaching_subject: req.body.teaching_subs } },
@@ -97,7 +97,7 @@ export class Controller {
             }
         )
     }
-    update_feedback(req, res) {
+    updateFeedback(req, res) {
         tutorModel.findByIdAndUpdate(
             req.body.id,
             { $set: { feedback: req.body.feedbacks } },
