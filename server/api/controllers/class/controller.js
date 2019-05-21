@@ -19,6 +19,9 @@ export class Controller{
     cancelClass(req,res){
         const id = req.params.id;
         classModel.findByIdAndDelete(id)
+            .then((err, data) => {
+                console.log(data)
+            })
             .catch((err) => {
                 res.send(err);
             });
@@ -32,11 +35,20 @@ export class Controller{
         })
     }
     findStdBookedClass(req, res){
+        let allClasses = [];
         classModel.find(
             {"student_id": req.params.student_id},
             (err, classes) => {
                 if(err) console.log(err)
-                else res.send(classes)
+                else{
+                    console.log(classes)
+                    for(let i = 0; i < classes.length; i++){
+                        for(let j = 0; j < classes[i].sessions.length; j++){
+                            allClasses.push(classes[i].sessions[j]);
+                        }
+                    }
+                    res.send(allClasses);
+                }
             }
         )
     }
