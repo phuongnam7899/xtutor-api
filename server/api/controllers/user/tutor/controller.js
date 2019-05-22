@@ -30,7 +30,7 @@ export class Controller {
         //         if (err) console.log(err)
         //         else res.send(userdata)
         //     })
-        const { academic_level, subject, country_name } = req.body;
+        const { academic_level, subject, country_name, academic_level_name, gender_name, language_name, nationality_name } = req.body;
         const queryTutor = {};
         const queryUser = {};
 
@@ -42,6 +42,18 @@ export class Controller {
         }
         if(country_name) {
             queryUser['userInfo.profile.country_name'] = country_name;
+        }
+        if(academic_level_name) {
+            queryUser['userInfo.profile.academic_level_name'] = academic_level_name;
+        }
+        if(gender_name) {
+            queryUser['userInfo.profile.gender_name'] = gender_name;
+        }
+        if(language_name) {
+            queryUser['userInfo.profile.language_name'] = language_name;
+        }
+        if(nationality_name) {
+            queryUser['userInfo.profile.nationality_name'] = nationality_name;
         }
 
         tutorModel.aggregate([
