@@ -11,7 +11,7 @@ export default function routes(app) {
   app.use(morgan('dev'));
   app.use("/api/auth", authRouter);
   app.use(function (req, res, next) {
-    const token = req.body.token || req.query.token || req.headers['x-access-token'];
+    const token = req.body.token || req.query.token || req.get('X-Auth-Token');
     if (token) {
       DisabledTokenModel.findOne({disabled_token: token}).then((tokenFound) =>{
         if(tokenFound){

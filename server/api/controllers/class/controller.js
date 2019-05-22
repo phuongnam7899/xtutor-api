@@ -24,39 +24,38 @@ export class Controller {
             });
     }
     bookClass(req, res) {
-        const { tutor_id, student_id, subject, sessions } = req.body;
+        const { tutor_id, hourly_rate, student_id, subject, sessions } = req.body;
 
-        classModel.create({ tutor_id, student_id, subject, sessions }, (err, newClass) => {
+        classModel.create({ tutor_id, hourly_rate, student_id, subject, sessions }, (err, newClass) => {
             if (err) console.log(err);
-            else res.send(newClass)
+            else res.send(newClass);
         })
     }
     findStdBookedClass(req, res) {
         classModel.find(
-            { "student_id": req.params.student_id },
-            (err, classes) => {
-                if (err) console.log(err)
-                else res.send(classes)
-            }
-        )
+            { "student_id": req.params.student_id })
+         .populate("tutor_id")
+         .then((classesFound) => res.send(classesFound))
+         .catch( err => res.send(err))
     }
     showTutorCalendar(req, res) {
-        let allClasses = [];
-        classModel.find(
-            { "tutor_id": req.params.tutor_id },
-            (err, classes) => {
-                if (err) console.log(err)
-                else {
-                    for (let i = 0; i < classes.length; i++) {
-                        allClasses = allClasses.concat(classes[i].sessions);
+        let calendar = [];
+        classModel.find({ "tutor_id": req.params.tutor_id })
+            .then((allClasses) => {
+                for (let i = 0; i < allClasses.length; i++) {
+                    for (let j = 0; j < allClasses[i].sessions.length; j++) {
+                        allClasses[i].sessions[j].title = allClasses[i].subject;       
                     }
+                    calendar = calendar.concat(allClasses[i].sessions);
                 }
             }
-        );
+            )
+            .catch((err) => res.send(err));
         tutorModel.findById(req.params.tutor_id)
             .then((tutor) => {
-                allClasses = allClasses.concat(tutor.free_calendar);
-                res.send(allClasses);
+                calendar = calendar.concat(tutor.free_calendar);
+                console.log(calendar);
+                res.send(calendar);
             })
             .catch((err) => {
                 res.send(err)
