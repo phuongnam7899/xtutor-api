@@ -3,6 +3,7 @@ import tutorModel from "../../models/tutor";
 import stdModel from "../../models/student";
 import DisabledTokenModel from '../../models/disabled_token'
 const jwt = require('../../../../node_modules/jsonwebtoken');
+const jwt_decode = require('jwt-decode');
 
 
 export class Controller {
@@ -22,12 +23,20 @@ export class Controller {
                                 password: password
                             }
                             const token = jwt.sign(payload, process.env.SECRET_KEY);
-                            if(userFound.role === "student") res.send(token);
-                            else res.send(token);
+                            const sent_data = {
+                                token: token,
+                                userInfo: userFound
+                            }
+                            if(userFound.role === "student") res.send(sent_data);
+                            else res.send(sent_data);
                         }
                     }
                 })
         }
+    }
+    checkToken(req, res){
+        const sent_token = req.query;
+        const decoded = jwt_decode(sent_token);
     }
     register(req, res){
         const { role, first_name, last_name, email, password, phone_num, gender_name } = req.body;

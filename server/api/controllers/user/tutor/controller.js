@@ -17,19 +17,70 @@ export class Controller {
             })
     }
     filter(req, res) {
-        const condition_obj = {}
-        for (let key in req.body) {
-            if (req.body[key] !== "") {
-                condition_obj[`teaching_subject.${key}`] = req.body[key]
-            }
+        // const condition_obj = {}
+        // for (let key in req.body) {
+        //     if (req.body[key] !== "") {
+        //         condition_obj[`teaching_subject.${key}`] = req.body[key]
+        //     }
+        // }
+        // console.log(condition_obj)
+        // tutorModel.find(condition_obj)
+        //     .populate('user_id')
+        //     .exec((err, userdata) => {
+        //         if (err) console.log(err)
+        //         else res.send(userdata)
+        //     })
+        const { academic_level, subject, country_name, academic_level_name, gender_name, language_name, nationality_name } = req.body;
+        const queryTutor = {};
+        const queryUser = {};
+
+        if(subject) {
+            queryTutor['teaching_subject.subject'] = subject;
         }
-        console.log(condition_obj)
-        tutorModel.find(condition_obj)
-            .populate('user_id')
-            .exec((err, userdata) => {
-                if (err) console.log(err)
-                else res.send(userdata)
-            })
+        if(academic_level) {
+            queryTutor['teaching_subject.academic_level'] = academic_level;
+        }
+        if(country_name) {
+            queryUser['userInfo.profile.country_name'] = country_name;
+        }
+        if(academic_level_name) {
+            queryUser['userInfo.profile.academic_level_name'] = academic_level_name;
+        }
+        if(gender_name) {
+            queryUser['userInfo.profile.gender_name'] = gender_name;
+        }
+        if(language_name) {
+            queryUser['userInfo.profile.language_name'] = language_name;
+        }
+        if(nationality_name) {
+            queryUser['userInfo.profile.nationality_name'] = nationality_name;
+        }
+
+        tutorModel.aggregate([
+            {
+                '$match': queryTutor
+            },
+            {
+				'$lookup': {
+					'from': 'users',
+					'localField': 'user_id',
+					'foreignField': '_id',
+					'as': 'userRefs'
+				}
+            },
+            {
+                '$addFields': {
+                    'userInfo': { '$arrayElemAt': ['$userRefs', 0] }
+                }
+            },
+            {
+                '$match': queryUser
+            }
+        ]).then(tutors => {
+            res.send(tutors);
+        }).catch(err => {
+            console.log(err);
+        });
     }
     updateReference(req, res) {
         const { major, institute, certificate } = req.body;

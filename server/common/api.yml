@@ -141,6 +141,47 @@ definitions:
         type: string
       subject:
         type: string 
+  userInfo:
+    type: object
+    properties:
+      academic_level_name:
+        type: string
+      account_number:
+        type: string
+      address:
+        type: string
+      bank_name:
+        type: string 
+      date_of_birth:
+        type: string
+      first_name:
+        type: string
+      gender_name:
+        type: string
+      last_name:
+        type: string
+      country_name:
+        type: string
+      language_name:
+        type: string
+      city_name:
+        type: string
+      nationality_name:
+        type: string
+      no_passport:
+        type: string
+      postal_code:
+        type: string
+      profile_picture:
+        type: string
+      payment_method:
+        type: string
+      paypal_email:
+        type: string
+      phone_code:
+        type: string
+      phone_number:
+        type: string
   free_time:
     type: object
     required:
@@ -203,7 +244,14 @@ paths:
       tags:
         - user
       description:
-        - get users profile    
+        - get users profile
+      parameters:
+        - account:
+          in: body
+          require: true
+          description: update info user
+          schema: 
+            $ref: "#/definitions/userInfo"    
       respond:
         200: get all users      
   /user/tutor:

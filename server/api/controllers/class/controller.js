@@ -19,6 +19,9 @@ export class Controller {
     cancelClass(req, res) {
         const id = req.params.id;
         classModel.findByIdAndDelete(id)
+            .then((err, data) => {
+                console.log(data)
+            })
             .catch((err) => {
                 res.send(err);
             });
