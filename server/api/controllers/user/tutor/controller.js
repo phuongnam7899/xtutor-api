@@ -17,20 +17,7 @@ export class Controller {
             })
     }
     filter(req, res) {
-        // const condition_obj = {}
-        // for (let key in req.body) {
-        //     if (req.body[key] !== "") {
-        //         condition_obj[`teaching_subject.${key}`] = req.body[key]
-        //     }
-        // }
-        // console.log(condition_obj)
-        // tutorModel.find(condition_obj)
-        //     .populate('user_id')
-        //     .exec((err, userdata) => {
-        //         if (err) console.log(err)
-        //         else res.send(userdata)
-        //     })
-        const { academic_level, subject, country_name, academic_level_name, gender_name, language_name, nationality_name } = req.body;
+        const { academic_level, subject, country_name, academic_level_name, gender_name, language_name, nationality_name} = req.body;
         const queryTutor = {};
         const queryUser = {};
 
@@ -55,6 +42,9 @@ export class Controller {
         if(nationality_name) {
             queryUser['userInfo.profile.nationality_name'] = nationality_name;
         }
+        // if(age) {
+        //     queryUser['userInfo.profile.age'] = age;
+        // }
 
         tutorModel.aggregate([
             {

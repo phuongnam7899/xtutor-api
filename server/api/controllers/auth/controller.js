@@ -12,38 +12,53 @@ export class Controller {
         if (!email || !password) {
             res.status(401).send({ success: 0, message: "account/password missing" })
         } else {
-            userModel.findOne({account : {email,password} })
+            userModel.findOne({ account: { email, password } })
                 .then((userFound) => {
                     if (!userFound) res.status(404).send({ success: 0, message: "user not found" });
                     else {
-                        if (password != userFound.account.password) res.status(40).send({ success: 0, message: "wrong password" });
+                        if (password != userFound.account.password) res.status(40).send({ success: 0, message: "wrong password" })
                         else {
                             const payload = {
                                 email: email,
                                 password: password
                             }
                             const token = jwt.sign(payload, process.env.SECRET_KEY);
-                            const sent_data = {
-                                token: token,
-                                userInfo: userFound
+                            if (userFound.role === "student") {
+                                stdModel.findOne({ "user_id": userFound._id }).populate("user_id").then((studentFound) => {
+                                    const sent_data = {
+                                        token: token,
+                                        userInfo: studentFound
+                                    }
+                                    res.send(sent_data);
+                                });
+                            } else {
+                                tutorModel.findOne({ "user_id": userFound._id }).populate("user_id").then((tutorFound) => {
+                                    const sent_data = {
+                                        token: token,
+                                        userInfo: tutorFound
+                                    }
+                                    console.log(sent_data);
+                                    res.send(sent_data);
+                                });
                             }
-                            if(userFound.role === "student") res.send(sent_data);
-                            else res.send(sent_data);
+                            
                         }
                     }
                 })
         }
     }
-    checkToken(req, res){
+    checkToken(req, res) {
         const sent_token = req.query;
         const decoded = jwt_decode(sent_token);
     }
-    register(req, res){
+
+    register(req, res) {
         const { role, first_name, last_name, email, password, phone_num, gender_name } = req.body;
 
         userModel.create(
-            {   profile: {last_name: last_name, first_name: first_name, gender_name: gender_name, phone_number: phone_num},
-                account: {email: email, password: password },
+            {
+                profile: { last_name: last_name, first_name: first_name, gender_name: gender_name, phone_number: phone_num },
+                account: { email: email, password: password },
                 role: role
             },
             (err, user) => {
@@ -73,9 +88,9 @@ export class Controller {
         )
     }
 
-    logout(req,res){
+    logout(req, res) {
         const token = req.body.token || req.query.token || req.headers['x-access-token'];
-        DisabledTokenModel.create({disabled_token: token});
+        DisabledTokenModel.create({ disabled_token: token });
     }
 }
 
