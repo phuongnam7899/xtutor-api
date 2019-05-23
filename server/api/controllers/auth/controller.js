@@ -52,15 +52,21 @@ export class Controller {
                     if(role === "tutor"){
                         tutorModel.create({user_id: user._id}, (err, tutor) => {
                             if(err) console.log(err)
-                            else res.send(tutor)
+                            else {
+                                console.log(tutor)
+                                res.send({success: 1, tutor: tutor})
+                            }
                         })
                     }else if(role === "student"){
                         stdModel.create({user_id: user._id}, (err, student) => {
                             if(err) console.log(err)
-                            else res.send(student)
+                            else{
+                                console.log(student)
+                                res.send({success: 1, student: student})
+                            }
                         }) 
                     }else{
-                        res.send("NO ROLE")
+                        res.send({success: 0})
                     }
                 }
             }
