@@ -37,9 +37,11 @@ export class Controller {
     findStdBookedClass(req, res) {
         classModel.find(
             { "student_id": req.params.student_id })
-         .populate("tutor_id")
-         .then((classesFound) => res.send(classesFound))
-         .catch( err => res.send(err))
+        .then((classesFound) => 
+            {
+                res.send(classesFound)
+            })
+        .catch( err => res.send(err))
     }
     showTutorCalendar(req, res) {
         let calendar = [];
