@@ -91,14 +91,14 @@ export class Controller {
         )
     }
     updateFreeTime(req, res) {
-        const newFreeTime = req.body.free_time;
+        const freeTime = req.body.free_time;
+        console.log(freeTime);
         const id = req.params.id;
         tutorModel.findById(id)
             .then((tutorFound) => {
-                let oldFreeTime = tutorFound.free_calendar;
                 tutorModel.updateOne(
                     { "_id": id },
-                    { free_calendar: oldFreeTime.concat(newFreeTime) })
+                    { free_calendar: freeTime })
                     .then(
                         (update) => {res.send(update)})
             })
