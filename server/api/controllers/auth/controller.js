@@ -25,21 +25,25 @@ export class Controller {
                             const token = jwt.sign(payload, process.env.SECRET_KEY);
                             if (userFound.role === "student") {
                                 stdModel.findOne({ "user_id": userFound._id }).populate("user_id").then((studentFound) => {
+
                                     const sent_data = {
                                         token: token,
                                         userInfo: studentFound
                                     }
                                     res.send(sent_data);
                                 });
-                            } else {
+                            } else if(userFound.role === "tutor") {
                                 tutorModel.findOne({ "user_id": userFound._id }).populate("user_id").then((tutorFound) => {
+                                    console.log(tutorFound)
                                     const sent_data = {
                                         token: token,
                                         userInfo: tutorFound
                                     }
-                                    console.log(sent_data);
                                     res.send(sent_data);
                                 });
+                            }else{
+                                console.log("fail")
+                                res.send("fail")
                             }
                             
                         }
@@ -91,6 +95,7 @@ export class Controller {
     logout(req, res) {
         const token = req.body.token || req.query.token || req.headers['x-access-token'];
         DisabledTokenModel.create({ disabled_token: token });
+        res.send("token clear")
     }
 }
 

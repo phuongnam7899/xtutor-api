@@ -6,3 +6,4 @@ export default express
                 .post("/login", controller.login)
                 .post("/register", controller.register)
                 .get("/logout", controller.logout)
+                
