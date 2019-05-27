@@ -42,7 +42,7 @@ export default class ExpressServer {
     app.use(bodyParser.urlencoded({ extended: true, limit: process.env.REQUEST_LIMIT || '100kb' }));
     //nhớ thêm dòng này để link vs frontend
     app.use(cors({
-      origin: ["http://localhost:3000"],
+      origin: ["http://localhost:3000","https://xtutor.herokuapp.com"],
       credentials: true
     }));
     app.use(cookieParser(process.env.SESSION_SECRET));
