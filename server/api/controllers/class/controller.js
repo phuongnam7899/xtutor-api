@@ -28,10 +28,14 @@ export class Controller {
     }
     bookClass(req, res) {
         const { tutor_id, hourly_rate, student_id, subject, sessions } = req.body;
+        console.log('chayj vao bookclass')
 
         classModel.create({ tutor_id, hourly_rate, student_id, subject, sessions }, (err, newClass) => {
             if (err) console.log(err);
-            else res.send(newClass);
+            else {
+                res.send(newClass);
+                console.log(newClass)
+            }
         })
     }
     findStdBookedClass(req, res) {
