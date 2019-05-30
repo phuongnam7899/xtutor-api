@@ -1,5 +1,5 @@
 import * as expresss from 'express';
-import Controller from './Controller';
+import Controller from './controller';
 export default expresss
         .Router()
         .get("/",Controller.get)

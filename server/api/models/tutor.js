@@ -11,7 +11,7 @@ const TutorSchema = new Schema({
             certificate:[String]
         },
         working_experience:[{
-            year: {type:Number},
+            year: {type:String},
             experience: {type: String}
         }],
         teaching_subject:[{
