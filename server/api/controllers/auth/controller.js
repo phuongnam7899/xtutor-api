@@ -30,6 +30,7 @@ export class Controller {
                                         token: token,
                                         userInfo: studentFound
                                     }
+                                    console.log(sent_data);
                                     res.send(sent_data);
                                 });
                             } else if(userFound.role === "tutor") {
@@ -39,6 +40,8 @@ export class Controller {
                                         token: token,
                                         userInfo: tutorFound
                                     }
+                                    console.log(tutorFound);
+                                    console.log(sent_data);
                                     res.send(sent_data);
                                 });
                             }else{

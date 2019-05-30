@@ -123,6 +123,8 @@ definitions:
         type: string
       subject:
         type: string 
+      academic_grade:
+        type: string
   newClass:
     type: object
     required:

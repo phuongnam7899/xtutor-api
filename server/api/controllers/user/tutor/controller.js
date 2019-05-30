@@ -5,22 +5,31 @@ export class Controller {
     get(req, res) {
         tutorModel.find({}, (err, data) => {
             if (err) console.log
-            else res.send(data)
+            else {
+                res.send(data)
+            }
         })
     }
     findOne(req, res) {
+        console.log('adsfaf')
         const id = req.params.id;
         tutorModel.findById(id)
             .populate('user_id')
             .exec((err, tutor) => {
-                res.send(tutor)
+                if(err) console.log(err)
+                else {
+                    res.send(tutor)
+                    console.log('adsf')
+                }
             })
     }
     filter(req, res) {
-        const { academic_level, subject, country_name, academic_level_name, gender_name, language_name, nationality_name} = req.body;
+        const { academic_level, subject, country_name, academic_level_name, gender_name, language_name, nationality_name, academic_grade} = req.body;
         const queryTutor = {};
         const queryUser = {};
-
+        if(academic_grade){
+            queryTutor['teaching_subject.academic_grade'] = academic_grade
+        }
         if(subject) {
             queryTutor['teaching_subject.subject'] = subject;
         }
@@ -42,9 +51,6 @@ export class Controller {
         if(nationality_name) {
             queryUser['userInfo.profile.nationality_name'] = nationality_name;
         }
-        // if(age) {
-        //     queryUser['userInfo.profile.age'] = age;
-        // }
 
         tutorModel.aggregate([
             {
@@ -91,14 +97,14 @@ export class Controller {
         )
     }
     updateFreeTime(req, res) {
-        const newFreeTime = req.body.free_time;
+        const freeTime = req.body.free_time;
+        console.log(freeTime);
         const id = req.params.id;
         tutorModel.findById(id)
             .then((tutorFound) => {
-                let oldFreeTime = tutorFound.free_calendar;
                 tutorModel.updateOne(
                     { "_id": id },
-                    { free_calendar: oldFreeTime.concat(newFreeTime) })
+                    { free_calendar: freeTime })
                     .then(
                         (update) => {res.send(update)})
             })
@@ -130,7 +136,7 @@ export class Controller {
             (err, updated) => {
                 if (err) console.log(err);
                 else {
-                    tutorModel.find({}, (err, tutors) => {
+                    tutorModel.find({"_id": req.body.id}, (err, tutors) => {
                         if (err) console.log(err)
                         else res.send(tutors)
                     })

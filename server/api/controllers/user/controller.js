@@ -34,7 +34,10 @@ export class Controller{
             .then((data) => {
                 // De new: true thi data nay moi la data moi, con khong thi no la data truoc khi update
                 res.send(data)
-            });
+            })
+            .catch((err) => {
+                res.send(err)
+            })
     }
 }
 export default new Controller();
