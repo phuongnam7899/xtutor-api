@@ -25,7 +25,6 @@ export class Controller {
                             const token = jwt.sign(payload, process.env.SECRET_KEY);
                             if (userFound.role === "student") {
                                 stdModel.findOne({ "user_id": userFound._id }).populate("user_id").then((studentFound) => {
-
                                     const sent_data = {
                                         token: token,
                                         userInfo: studentFound
@@ -61,38 +60,43 @@ export class Controller {
 
     register(req, res) {
         const { role, first_name, last_name, email, password, phone_num, gender_name } = req.body;
-
-        userModel.create(
-            {
-                profile: { last_name: last_name, first_name: first_name, gender_name: gender_name, phone_number: phone_num },
-                account: { email: email, password: password },
-                role: role
-            },
-            (err, user) => {
-                if(err) console.log(err)
-                else{
-                    if(role === "tutor"){
-                        tutorModel.create({user_id: user._id}, (err, tutor) => {
-                            if(err) console.log(err)
-                            else {
-                                console.log(tutor)
-                                res.send({success: 1, tutor: tutor})
+        userModel.find({ "email": email}, (data) =>{
+            if(data){
+                res.send({success: 0, message: "User existed"})
+            }else{
+                userModel.create(
+                    {
+                        profile: { last_name: last_name, first_name: first_name, gender_name: gender_name, phone_number: phone_num },
+                        account: { email: email, password: password },
+                        role: role
+                    },
+                    (err, user) => {
+                        if(err) console.log(err)
+                        else{
+                            if(role === "tutor"){
+                                tutorModel.create({user_id: user._id}, (err, tutor) => {
+                                    if(err) console.log(err)
+                                    else {
+                                        console.log(tutor)
+                                        res.send({success: 1, tutor: tutor})
+                                    }
+                                })
+                            }else if(role === "student"){
+                                stdModel.create({user_id: user._id}, (err, student) => {
+                                    if(err) console.log(err)
+                                    else{
+                                        console.log(student)
+                                        res.send({success: 1, student: student})
+                                    }
+                                }) 
+                            }else{
+                                res.send({success: 0})
                             }
-                        })
-                    }else if(role === "student"){
-                        stdModel.create({user_id: user._id}, (err, student) => {
-                            if(err) console.log(err)
-                            else{
-                                console.log(student)
-                                res.send({success: 1, student: student})
-                            }
-                        }) 
-                    }else{
-                        res.send({success: 0})
+                        }
                     }
-                }
+                )
             }
-        )
+        })
     }
 
     logout(req, res) {
