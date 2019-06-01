@@ -79,15 +79,16 @@ export class Controller {
         });
     }
     updateReference(req, res) {
-        const { major, institute, certificate } = req.body;
+        const { major, institute, certificate, about_me } = req.body;
 
         tutorModel.findByIdAndUpdate(
             req.body.id,
-            { $set: { reference: { major, institute, certificate } } },
+            { $set: { reference: { about_me, major, institute, certificate } } },
             { new: true },
             (err, updated) => {
                 if (err) console.log(err);
                 else {
+                    console.log('update reference')
                     tutorModel.find({}, (err, tutors) => {
                         if (err) console.log(err)
                         else res.send(tutors)

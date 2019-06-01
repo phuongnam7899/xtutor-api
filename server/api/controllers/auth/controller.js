@@ -98,12 +98,8 @@ export class Controller {
     logout(req, res) {
         const token = req.body.token || req.query.token || req.headers['x-access-token'];
         DisabledTokenModel.create({ disabled_token: token });
-<<<<<<< HEAD
-        res.send("token clear")
-=======
 
         res.send("logged out")
->>>>>>> 0fa2dab975a7ac2932eebd9131335a962be630a9
     }
 }
 

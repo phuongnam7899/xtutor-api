@@ -20,6 +20,7 @@ export class Controller {
         const id = req.params.id;
         classModel.findByIdAndDelete(id)
             .then((err, data) => {
+                console.log('delete')
                 console.log(data)
             })
             .catch((err) => {

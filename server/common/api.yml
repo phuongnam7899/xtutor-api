@@ -59,6 +59,8 @@ definitions:
     required:
     - major
     properties:
+      about_me: 
+        type: string
       major:
         type: array
         items:
