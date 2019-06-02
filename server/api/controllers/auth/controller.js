@@ -10,13 +10,13 @@ export class Controller {
     login(req, res) {
         const { email, password } = req.body;
         if (!email || !password) {
-            res.status(401).send({ success: 0, message: "account/password missing" })
+            res.status(401).send({ success: 0, message: "Missing email or password" })
         } else {
             userModel.findOne({ account: { email, password } })
                 .then((userFound) => {
-                    if (!userFound) res.status(404).send({ success: 0, message: "user not found" });
+                    if (!userFound) res.status(404).send({ success: 0, message: "Wrong email or password" });
                     else {
-                        if (password != userFound.account.password) res.status(40).send({ success: 0, message: "wrong password" })
+                        if (password != userFound.account.password) res.status(40).send({ success: 0, message: "Wrong password" })
                         else {
                             const payload = {
                                 email: email,
