@@ -1,9 +1,12 @@
 swagger: "2.0"
+
 info:
   version: 1.0.0
   title: backend
-  description: My cool app
+  description: x-tutor APIs
+
 basePath: /api
+
 tag: 
 - name: "auth"
   description: "Everything about sign up and sign in"
@@ -132,6 +135,7 @@ definitions:
     - student_id
     - subject
     - sessions
+    - hourly_rate
     properties:
       sessions:
         type: array
@@ -143,6 +147,8 @@ definitions:
         type: string
       subject:
         type: string 
+      hourly_rate:
+        type: number
   userInfo:
     type: object
     properties:
@@ -193,6 +199,7 @@ definitions:
         type: array
         items:
           type: object
+
 paths:
   /auth/register:
     post:
@@ -218,7 +225,7 @@ paths:
         - auth
       description: user login
       parameters:
-        - account:
+        - name: account
           in: body
           require: true
           description: user account
@@ -238,7 +245,7 @@ paths:
       paramenters:
         - name: token
           in: query
-          description: token to be disable
+          description: token to be disabled
           schema:
             type: string
   /user:
@@ -260,10 +267,11 @@ paths:
     get:
       tags:
         - tutor
-      description: get all tutor
+      description: get all tutors
       respond:
         - 404:
           description: no turors
+
   /user/tutor/update_free_time/{id}:  
     put:
       tags:
@@ -285,6 +293,7 @@ paths:
             description: go to user's page
         - 401:
             description: email or password incorrect
+
   /user/student/{id}:
     get:
       tags:
@@ -298,6 +307,7 @@ paths:
       respond:
         - 404:
           description: no student
+
   /user/tutor/update_reference:
     put:
       tags:
@@ -315,16 +325,17 @@ paths:
             description: go to user's page
         - 401:
             description: email or password incorrect
+
   /user/tutor/update_experience:
     put:
       tags:
       - tutor
       description: update tutor experience
       parameters:
-        - account:
+        - name: experience
           in: body
           require: true
-          description: update experience
+          description: new experience info
           schema: 
             $ref: "#/definitions/experience"
       respond:
@@ -332,16 +343,17 @@ paths:
             description: go to user's page
         - 401:
             description: email or password incorrect
+
   /user/tutor/update_teaching_sub:
     put:
       tags:
       - tutor
       description: update tutor teaching subject
       parameters:
-        - account:
+        - name: teaching_subject
           in: body
           require: true
-          description: update teaching subject
+          description: new teaching subject info
           schema: 
             $ref: "#/definitions/teaching_sub"
       respond:
@@ -349,6 +361,7 @@ paths:
             description: go to user's page
         - 401:
             description: email or password incorrect
+
   /user/tutor/update_feedback:
     put:
       tags:
@@ -366,6 +379,7 @@ paths:
             description: go to user's page
         - 401:
             description: email or password incorrect
+
   /class/{id}:
     tags:
       - class
@@ -384,6 +398,17 @@ paths:
           description: class id
           type: string
 
+  /class/tutor/all/{tutor_id}:
+    tags:
+      - class
+    get:
+      description: find tutor's classes
+    parameters:
+      - name: tutor_id
+        in: path
+        description: class id
+        type: string
+
   /user/tutor/{id}:
     get:
       tags:
@@ -393,23 +418,24 @@ paths:
         - name : id
           in: path
           require: true
-          description: get tutor detail
+          description: tutor's id
           type: string
       respond:
         - 200: 
             description: go to user's page
         - 401:
             description: email or password incorrect
+
   /user/tutor/filter:
     post:
       tags:
       - tutor
       description: filter tutor
       parameters:
-        - name: body
+        - name: condition
           in: body
           require: true
-          description: filter tutor
+          description: filter condition
           schema: 
             $ref: "#/definitions/tutor_filter"
       respond:
@@ -417,6 +443,7 @@ paths:
             description: go to user's page
         - 401:
             description: email or password incorrect
+
   /class:
     post:
       tags:
@@ -426,7 +453,7 @@ paths:
        - name: info
          in: body
          require: true
-         description: new class booked by student
+         description: infomation of new class booked by student
          schema: 
            $ref: "#/definitions/newClass"
       respond:
@@ -434,6 +461,7 @@ paths:
           description: Class success
         - 405:
           description: Invalid info
+
   /class/student/{student_id}:
     get:
       tags:
@@ -449,11 +477,12 @@ paths:
           description: Class success
         - 405:
           description: Invalid info
+
   /class/tutor/{tutor_id}:
     get:
       tags:
         - class
-      description: get class of tutor
+      description: get classes and freetime of tutor
       parameters:
         - name: tutor_id
           in: path

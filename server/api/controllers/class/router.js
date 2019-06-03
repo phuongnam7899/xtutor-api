@@ -7,4 +7,5 @@ export default express
                 .get('/:id', Controller.getOne)
                 .delete('/:id',Controller.cancelClass)
                 .get("/tutor/:tutor_id", Controller.showTutorCalendar)
+                .get("/tutor/all/:tutor_id",Controller.findTutorClass)
                 .get("/student/:student_id", Controller.findStdBookedClass)

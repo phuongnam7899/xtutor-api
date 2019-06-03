@@ -47,6 +47,15 @@ export class Controller {
             })
         .catch( err => res.send(err))
     }
+    findTutorClass(req, res) {
+        classModel.find(
+            { "tutor_id": req.params.tutor_id })
+        .then((classesFound) => 
+            {
+                res.send(classesFound)
+            })
+        .catch( err => res.send(err))
+    }
     showTutorCalendar(req, res) {
         let calendar = [];
         classModel.find({ "tutor_id": req.params.tutor_id })
