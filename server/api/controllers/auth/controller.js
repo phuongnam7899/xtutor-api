@@ -59,7 +59,7 @@ export class Controller {
     }
 
     register(req, res) {
-        const { role, first_name, last_name, email, password, phone_num, gender_name } = req.body;
+        const { role, first_name, last_name, email, password, phone_num, gender_name, profile_picture } = req.body;
         userModel.find({'account.email': email}, (err, data) =>{
             console.log(data.length)
             if(data.length > 0){
@@ -69,7 +69,7 @@ export class Controller {
                 console.log("tao moi")
                 userModel.create(
                     {
-                        profile: { last_name: last_name, first_name: first_name, gender_name: gender_name, phone_number: phone_num },
+                        profile: { last_name: last_name, first_name: first_name, gender_name: gender_name, phone_number: phone_num, profile_picture: profile_picture },
                         account: { email: email, password: password },
                         role: role
                     },

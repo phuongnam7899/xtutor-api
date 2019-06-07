@@ -23,7 +23,7 @@ const UserSchema = new Schema({
         nationality_name: {type:String},
         no_passport: {type:Number},
         postal_code: {type:String},
-        profile_picture: {type:Buffer},
+        profile_picture: {type:String},
         payment_method: {type: String},
         paypal_email: {type:String},
         phone_code: {type:Number},
