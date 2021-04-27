@@ -30,7 +30,7 @@
     "mongoose": "^5.5.8",
     "morgan": "^1.9.1",
     "pino": "^5.11.1",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "swagger-express-middleware": "^2.0.1"
   },
   "devDependencies": {
